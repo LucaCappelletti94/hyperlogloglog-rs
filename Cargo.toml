@@ -1,0 +1,81 @@
+[package]
+name = "hyperlogloglog"
+version = "0.1.0"
+edition = "2021"
+authors = ["Luca Cappelletti <cappelletti.luca94@gmail.com>"]
+description = "A Rust implementation of HyperLogLog-log: compressed HyperLogLog sketches."
+homepage = "https://github.com/LucaCappelletti94/hyperlogloglog-rs"
+repository = "https://github.com/LucaCappelletti94/hyperlogloglog-rs"
+readme = "README.md"
+license = "MIT"
+keywords = [
+  "hyperloglog",
+  "compressed",
+  "probabilistic",
+  "cardinality",
+  "estimation",
+]
+categories = ["no-std", "algorithms", "science"]
+
+[dependencies]
+sketching-core = { path = "../sketching-core-rs", features = ["serde"] }
+twox-hash = { version = "1.6.3", default-features = false }
+paste = "1.0.15"
+serde = { version = "1.0", default-features = false, features = ["derive"], optional = true }
+
+[dev-dependencies]
+proptest = "1.5"
+serde_json = "1.0"
+criterion = { version = "0.5", features = ["html_reports"] }
+hyperloglog-rs = { path = "../hyperloglog-rs" }
+
+[features]
+default = []
+serde = ["dep:serde", "sketching-core/serde"]
+
+[lints.rust]
+unsafe_code = "deny"
+missing_docs = "deny"
+
+[lints.clippy]
+all = { level = "deny", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+
+must_use_candidate = "allow"
+missing_errors_doc = "allow"
+module_name_repetitions = "allow"
+
+unwrap_used = "deny"
+expect_used = "deny"
+todo = "deny"
+dbg_macro = "deny"
+print_stdout = "deny"
+print_stderr = "deny"
+
+arithmetic_side_effects = "allow"
+panic = "allow"
+float_cmp = "allow"
+bool_comparison = "allow"
+cast_possible_truncation = "allow"
+cast_sign_loss = "allow"
+cast_precision_loss = "allow"
+cast_lossless = "allow"
+legacy_numeric_constants = "allow"
+useless_conversion = "allow"
+unnecessary_cast = "allow"
+uninlined_format_args = "allow"
+manual_range_contains = "allow"
+
+
+[profile.test]
+overflow-checks = true
+debug = true
+debug-assertions = true
+[profile.release]
+overflow-checks = false
+debug = false
+debug-assertions = false
+opt-level = 3
+[[bench]]
+name = "hyperlogloglog"
+harness = false
