@@ -68,7 +68,7 @@ macro_rules! impl_hlll {
                     fn default() -> Self {
                         Self {
                             sparse: SparseRegisters::new(),
-                            dense: Packed::default(),
+                            dense: Packed::new([0u64; $words]),
                             base: 0,
                             min_register: 0,
                             _hasher: core::marker::PhantomData,
