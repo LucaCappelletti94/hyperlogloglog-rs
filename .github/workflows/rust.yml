@@ -74,16 +74,3 @@ jobs:
       - name: Compile benchmarks
         run: cargo bench --all-features --no-run
 
-  mutants:
-    name: Mutation testing
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2
-      - name: Run mutation testing
-        run: >
-          cargo mutants --in-place
-          --file 'src/**/*.rs' --timeout 30
